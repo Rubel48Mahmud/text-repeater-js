@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        <!-- ... (Your existing CSS) ... -->
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        }
+        
+        header {
+        background-color: #3498db;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        }
+        
+        .container {
+        margin: 20px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px 0;
+        }
+        
+        button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size:15px
+        }
+        
+        button:hover {
+        background-color: #2980b5;
+        }
+        
+        #outputText {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Text Repeater</h1>
+    </header>
+    <div class="container">
+        <input type="text" id="inputText" placeholder="Enter text">
+        <input type="number" id="repeatCount" placeholder="Enter repeat count">
+        <button onclick="repeatText()">Repeat Text</button>
+        <button onclick="copyToClipboard()">Copy</button>
+        <div id="outputText"></div>
+        
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function repeatText() {
+            var inputText = document.getElementById("inputText").value;
+            var repeatCount = document.getElementById("repeatCount").value;
+            var outputText = document.getElementById("outputText");
+
+            if (inputText && repeatCount) {
+                outputText.innerHTML = "";
+                for (var i = 0; i < repeatCount; i++) {
+                    outputText.innerHTML += inputText + "<br>";
+                    outputText.style.color="#000"
+                }
+            } else {
+                outputText.innerHTML = "Please enter text and repeat count.";
+                outputText.style.color="red"
+            }   
+        }
+
+        function copyToClipboard() {
+            var outputText = document.getElementById("outputText");
+            var textArea = document.createElement("textarea");
+            textArea.value = outputText.innerText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            
+            if(outputText.innerHTML==""){
+            
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            
+            })
+            
+            }
+            
+            else{
+            Swal.fire(
+            'Good job!',
+            'Your content is copied!',
+            'success'
+            )}
+            
+        }
+    </script>
+</body>
+</html>
